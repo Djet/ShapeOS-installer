@@ -1,11 +1,10 @@
-FROM ubuntu:18.10
+FROM ubuntu:20.04
 
 RUN apt-get update -qqy \
-    && apt-get -qqy install wget bsdtar genisoimage syslinux-utils
+    && apt-get -qqy install wget libarchive-tools genisoimage syslinux-utils
 
-RUN wget https://cdimage.debian.org/cdimage/buster_di_alpha4/amd64/iso-cd/debian-buster-DI-alpha4-amd64-netinst.iso
-
-RUN mkdir /tmp/iso && cat debian-buster-DI-alpha4-amd64-netinst.iso | bsdtar -C "/tmp/iso" -xf - \
+RUN wget https://cdimage.debian.org/cdimage/bullseye_di_alpha3/amd64/iso-cd/debian-bullseye-DI-alpha3-amd64-netinst.iso
+RUN mkdir /tmp/iso && cat  debian-bullseye-DI-alpha3-amd64-netinst.iso | bsdtar -C "/tmp/iso" -xf - \
     && chmod -R +w /tmp/iso
 ADD preseed.cfg /tmp/iso/preseed.cfg
 ADD txt.cfg /tmp/iso/isolinux/txt.cfg
